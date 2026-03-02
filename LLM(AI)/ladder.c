@@ -9,9 +9,9 @@ int main() {
     freopen("ladder.out", "w", stdout);
 
     int n;
-    // if (scanf("%d", &n) != 1) {
-    //     return 0;
-    // }
+    if (scanf("%d", &n) != 1) {
+        return 0;
+    }
 
     int a[101];
     for (int i = 1; i <= n; i++) {
