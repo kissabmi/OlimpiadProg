@@ -21,7 +21,6 @@ class Solution:
         return T2
 
 
-# if __name__ == "__main__":
 #     print(Solution().tribonacci(25))
 
 # рекурсия время руинит
