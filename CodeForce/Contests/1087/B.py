@@ -2,53 +2,42 @@ import sys
 
 
 def solve():
-    data = sys.stdin.read().split()
-    if not data:
-        return
+    input_data = sys.stdin.read().split()
 
-    ptr = 0
-    t = int(data[ptr])
-    ptr += 1
+    idx = 0
+    t = int(input_data[idx])
+    idx += 1
 
     results = []
     for _ in range(t):
-        n = int(data[ptr])
-        ptr += 1
-        a = [int(x) for x in data[ptr : ptr + n]]
-        ptr += n
+        n = int(input_data[idx])
+        idx += 1
 
-        pm = [0] * n
-        cur_m = 0
+        a = []
+        for _ in range(n):
+            a.append(int(input_data[idx]))
+            idx += 1
+
+        ans = [0] * n
+
         for i in range(n):
-            if a[i] > cur_m:
-                cur_m = a[i]
-            pm[i] = cur_m
+            count_smaller = 0
+            count_larger = 0
+            val_i = a[i]
 
-        pos = [[] for _ in range(n + 1)]
-        for i in range(n):
-            pos[a[i]].append(i)
+            for j in range(i + 1, n):
+                val_j = a[j]
+                if val_j < val_i:
+                    count_smaller += 1
+                elif val_j > val_i:
+                    count_larger += 1
 
-        ans = 0
-        curr_l = n
-        while curr_l > 0:
-            m = pm[curr_l - 1]
-            idx_list = pos[m]
+            if count_smaller > count_larger:
+                ans[i] = count_smaller
+            else:
+                ans[i] = count_larger
 
-            low = 0
-            high = len(idx_list) - 1
-            best = -1
-            while low <= high:
-                mid = (low + high) // 2
-                if idx_list[mid] < curr_l:
-                    best = idx_list[mid]
-                    low = mid + 1
-                else:
-                    high = mid - 1
-
-            curr_l = best
-            ans += 1
-
-        results.append(str(ans))
+        results.append(" ".join(map(str, ans)))
 
     sys.stdout.write("\n".join(results) + "\n")
 
